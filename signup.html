@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Firebase Signup</title>
+</head>
+<body>
+  <h2>Signup Form</h2>
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button onclick="signUp()">Sign Up</button>
+
+  <p id="status"></p>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <script>
+    // Paste your firebaseConfig here:
+    const firebaseConfig = {
+    apiKey: "AIzaSyAXtkhONecLQI_GYWSMgP4JkHE7NXF5wl8",
+    authDomain: "arduino-center-signup.firebaseapp.com",
+    projectId: "arduino-center-signup",
+    storageBucket: "arduino-center-signup.firebasestorage.app",
+    messagingSenderId: "101928634918",
+    appId: "1:101928634918:web:3d6d39407a576797c1b4e7"
+  };
+
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function signUp() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          document.getElementById("status").innerText = "Signup successful!";
+        })
+        .catch((error) => {
+          document.getElementById("status").innerText = "Error: " + error.message;
+        });
+    }
+  </script>
+</body>
+</html>
