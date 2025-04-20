@@ -1,44 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arduino Center Login</title>
-    <link rel="stylesheet" href="loginStyle.css">
-    <script defer src="login.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arduino Center Login</title>
+  <link rel="stylesheet" href="loginStyle.css" />
 </head>
 <body>
-    <div class="topnav">
-        <a href="index.html">
-            <img src="Arduino_Logo.svg.png" alt="Logo">
-        </a>
-        <a href="index.html">Home</a>
-        <a href="#Tutorials">Tutorials</a>
-        <a href="#Project Ideas">Project Ideas</a>
-        <a href="#Videos">Videos</a>
-        <a href="about.html">About</a>
-        <div class="left-topnav">
-            <a href="login.html">Login</a>
-            <a href="signup.html">Sign Up</a>
-            <a href="index.html">The Arduino Center</a>
-        </div>
+  <div class="topnav">
+    <a href="index.html"><img src="Arduino_Logo.svg.png" alt="Logo" /></a>
+    <a href="index.html">Home</a>
+    <a href="#Tutorials">Tutorials</a>
+    <a href="#Project Ideas">Project Ideas</a>
+    <a href="#Videos">Videos</a>
+    <a href="about.html">About</a>
+    <div class="left-topnav">
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+      <a href="index.html">The Arduino Center</a>
     </div>
+  </div>
 
-    <main class="content">
+  <main class="content">
     <div id="main-holder">
-        <h1 id="login-header">Login</h1>
-        
-        <div id="login-error-msg-holder">
-          <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
-        </div>
-        
-        <form id="login-form">
-          <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
-          <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-          <input type="submit" value="Login" id="login-form-submit">
-        </form>
-      
+      <h1 id="login-header">Login</h1>
+
+      <div id="login-error-msg-holder">
+        <p id="login-error-msg" style="display:none;">Invalid email <span id="error-msg-second-line">or password</span></p>
       </div>
-      </main>
+
+      <form id="login-form">
+        <input type="email" id="email-field" class="login-form-field" placeholder="Email" required />
+        <input type="password" id="password-field" class="login-form-field" placeholder="Password" required />
+        <input type="submit" value="Login" id="login-form-submit" />
+      </form>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyAXtkhONecLQI_GYWSMgP4JkHE7NXF5wl8",
+    authDomain: "arduino-center-signup.firebaseapp.com",
+    projectId: "arduino-center-signup",
+    storageBucket: "arduino-center-signup.firebasestorage.app",
+    messagingSenderId: "101928634918",
+    appId: "1:101928634918:web:3d6d39407a576797c1b4e7"
+  };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Login handler
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email-field").value;
+      const password = document.getElementById("password-field").value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Success - redirect or show a message
+          window.location.href = "index.html"; // or wherever you want
+        })
+        .catch((error) => {
+          // Show error
+          document.getElementById("login-error-msg").style.opacity = "1";
+        });
+    });
+  </script>
 </body>
 </html>

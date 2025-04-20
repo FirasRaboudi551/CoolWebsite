@@ -3,12 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <title>Firebase Signup</title>
+  <link rel="stylesheet" href="signupStyle.css" />
 </head>
 <body>
-  <h2>Signup Form</h2>
-  <input type="email" id="email" placeholder="Email" required />
-  <input type="password" id="password" placeholder="Password" required />
-  <button onclick="signUp()">Sign Up</button>
+    <div class="topnav">
+        <a href="index.html"><img src="Arduino_Logo.svg.png" alt="Logo" /></a>
+        <a href="index.html">Home</a>
+        <a href="#Tutorials">Tutorials</a>
+        <a href="#Project Ideas">Project Ideas</a>
+        <a href="#Videos">Videos</a>
+        <a href="about.html">About</a>
+        <div class="left-topnav">
+          <a href="login.html">Login</a>
+          <a href="signup.html">Sign Up</a>
+          <a href="index.html">The Arduino Center</a>
+        </div>
+      </div>
+      
+  <main class="content">
+    <div id="main-holder">
+      <h1 id="login-header">Sign Up</h1>
+
+      <div id="login-error-msg-holder">
+        <p id="login-error-msg" style="display:none;">Invalid email <span id="error-msg-second-line">or password</span></p>
+      </div>
+
+      <form id="login-form">
+        <input type="email" id="email" class="login-form-field" placeholder="Email" required />
+        <input type="password" id="password" class="login-form-field" placeholder="Password" required />
+        <input type="submit" value="Sign Up" id="login-form-submit" onclick="signUp()"/>
+      </form>
+    </div>
+  </main>
 
   <p id="status"></p>
 
@@ -38,6 +64,7 @@
       auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
           document.getElementById("status").innerText = "Signup successful!";
+          window.location.href = "index.html";
         })
         .catch((error) => {
           document.getElementById("status").innerText = "Error: " + error.message;
